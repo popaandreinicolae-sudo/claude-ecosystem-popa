@@ -26,6 +26,9 @@ irina-mihu-persona/
 
 ## Instalare
 
+Pe macOS, urmează ghidul dedicat: `GHID-INSTALARE-MAC.md` (pas cu pas, inclusiv
+`claude_desktop_config.mac.example.json`).
+
 1. Instalează dependențele (Python 3.10+):
 
 ```powershell

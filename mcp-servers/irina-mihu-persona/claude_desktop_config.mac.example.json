@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "irina-mihu-persona": {
+      "command": "python3",
+      "args": [
+        "/Users/NUMELE_TAU/Documents/irina-mihu-persona/server.py"
+      ]
+    }
+  }
+}
