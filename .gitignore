@@ -1,0 +1,50 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+dist/
+build/
+*.egg-info/
+
+# Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+credentials.json
+secrets.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+_session_audit_*.txt
+
+# Build artifacts
+*.tgz
+.tsbuildinfo
+
+# Tests
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local data
+.cognee/
+data/
+local/
+
+# Personal samples
+personal_samples/
+private/

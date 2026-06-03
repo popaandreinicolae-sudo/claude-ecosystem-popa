@@ -1,0 +1,76 @@
+name: CCR Watcher Daily
+
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  ccr-watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: |
+          pip install anthropic requests beautifulsoup4 lxml
+
+      - name: Generate prompt for today
+        run: |
+          cd managed-agents
+          python ccr_watcher.py
+
+      - name: Invoke Claude Managed Agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          cd managed-agents
+          TODAY=$(date +%Y-%m-%d)
+          PROMPT_FILE="output/ccr-watch/prompt-$TODAY.txt"
+          REPORT_FILE="output/ccr-watch/$TODAY.md"
+          mkdir -p output/ccr-watch
+          python <<'PY'
+          import os
+          import sys
+          from pathlib import Path
+          from anthropic import Anthropic
+          import datetime
+
+          today = datetime.date.today().isoformat()
+          prompt = Path(f"output/ccr-watch/prompt-{today}.txt").read_text(encoding="utf-8")
+
+          client = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+          message = client.messages.create(
+              model="claude-opus-4-8",
+              max_tokens=8192,
+              messages=[{"role": "user", "content": prompt}],
+          )
+          report_text = "".join(block.text for block in message.content if hasattr(block, "text"))
+          Path(f"output/ccr-watch/{today}.md").write_text(report_text, encoding="utf-8")
+          print(f"Report saved: output/ccr-watch/{today}.md")
+          PY
+
+      - name: Commit reports
+        run: |
+          cd managed-agents
+          git config user.email "ccr-watcher-bot@local"
+          git config user.name "CCR Watcher Bot"
+          git add output/
+          git diff --quiet --staged || git commit -m "ccr-watch: report $(date +%Y-%m-%d)"
+          git push || echo "Push failed (probably no changes)"
+
+      - name: Email notification on findings
+        if: success()
+        run: |
+          cd managed-agents
+          TODAY=$(date +%Y-%m-%d)
+          REPORT="output/ccr-watch/$TODAY.md"
+          if [ -s "$REPORT" ] && grep -q "Decizia nr\." "$REPORT"; then
+            echo "Decizii noi detectate. Trimite email manual sau configureaza SMTP secrets."
+          fi

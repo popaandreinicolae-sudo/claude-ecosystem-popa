@@ -1,0 +1,60 @@
+name: HUDOC Watcher Weekly
+
+on:
+  schedule:
+    - cron: '0 10 * * 1'
+  workflow_dispatch:
+
+jobs:
+  hudoc-watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install anthropic requests
+
+      - name: Generate prompt
+        run: |
+          cd managed-agents
+          python hudoc_watcher.py
+
+      - name: Invoke Claude Managed Agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          cd managed-agents
+          python <<'PY'
+          import os
+          import datetime
+          from pathlib import Path
+          from anthropic import Anthropic
+
+          today = datetime.date.today().isoformat()
+          prompt = Path(f"output/hudoc-watch/prompt-{today}.txt").read_text(encoding="utf-8")
+
+          client = Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+          message = client.messages.create(
+              model="claude-opus-4-8",
+              max_tokens=16384,
+              messages=[{"role": "user", "content": prompt}],
+          )
+          report_text = "".join(block.text for block in message.content if hasattr(block, "text"))
+          Path(f"output/hudoc-watch/{today}.md").write_text(report_text, encoding="utf-8")
+          print(f"Report saved: output/hudoc-watch/{today}.md")
+          PY
+
+      - name: Commit reports
+        run: |
+          cd managed-agents
+          git config user.email "hudoc-watcher-bot@local"
+          git config user.name "HUDOC Watcher Bot"
+          git add output/
+          git diff --quiet --staged || git commit -m "hudoc-watch: report $(date +%Y-%m-%d)"
+          git push || echo "Push failed"
