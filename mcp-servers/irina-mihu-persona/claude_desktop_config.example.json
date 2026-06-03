@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "irina-mihu-persona": {
+      "command": "python",
+      "args": [
+        "C:\\Users\\Adrian Vasilescu\\Downloads\\Irina Mihu\\irina-mihu-persona\\server.py"
+      ]
+    }
+  }
+}

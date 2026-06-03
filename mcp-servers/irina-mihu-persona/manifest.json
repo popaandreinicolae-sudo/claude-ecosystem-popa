@@ -1,0 +1,98 @@
+{
+  "manifest_version": "0.2",
+  "name": "irina-mihu-persona",
+  "display_name": "Persona Irina Mihu, Diplomat MAE",
+  "version": "1.0.0",
+  "description": "Persona MCP a diplomatului Irina Mihu (MAE, Secretar III, DAGFIJ, Departamentul UE, mandat la Ambasada Romaniei in Israel). Face ca Claude sa gandeasca, sa scrie si sa documenteze ca un diplomat expert pe afaceri europene, energie, diplomatie economica, drept diplomatic si international, diplomatie cibernetica si protocol.",
+  "long_description": "Server MCP de persona construit pe standardele MCP si de persona engineering 2026: transport stdio local, trei primitive (prompts, resources, tools), persona versionabila in markdown cu frontmatter, ancorare in surse reale, fara date personale de contact. Profil derivat din dosarul real al diplomatului (CV, scrisoare de motivatie, recomandari, autoevaluare de promovare, bibliografiile concursului MAE pentru posturi diplomatice si consulare). Expune 5 prompts (activate_irina, mode_centrala, mode_exterior_israel, mode_analiza_juridica, draft), 5 resources (persona://definitie, persona://profil, persona://canon, persona://surse, persona://sabloane) si 7 tools. Limbi: romana si ebraica native, engleza, italiana si franceza C2. Standarde obligatorii: zero inventie de cifre, articole sau citate (marcaj [NEVERIFICAT]), confidentialitate, registru formal-diplomatic, anti-AI tone.",
+  "author": {
+    "name": "Andrei Nicolae Popa",
+    "email": "popa.andrei.nicolae@gmail.com"
+  },
+  "homepage": "https://github.com/popaandreinicolae-sudo/claude-ecosystem-popa",
+  "documentation": "https://github.com/popaandreinicolae-sudo/claude-ecosystem-popa/blob/main/mcp-servers/irina-mihu-persona/README.md",
+  "license": "MIT",
+  "keywords": [
+    "persona",
+    "diplomacy",
+    "mae",
+    "european-affairs",
+    "economic-diplomacy",
+    "diplomatic-law",
+    "romania-israel",
+    "romanian-language",
+    "cowork"
+  ],
+  "server": {
+    "type": "python",
+    "entry_point": "server.py",
+    "mcp_config": {
+      "command": "python",
+      "args": [
+        "${__dirname}/server.py"
+      ]
+    }
+  },
+  "tools": [
+    {
+      "name": "get_persona_profile",
+      "description": "Profilul profesional al Irinei Mihu, fara date personale de contact"
+    },
+    {
+      "name": "list_domenii",
+      "description": "Listeaza domeniile de expertiza ale personei"
+    },
+    {
+      "name": "list_templates",
+      "description": "Listeaza genurile de documente cu sablon disponibil"
+    },
+    {
+      "name": "get_template",
+      "description": "Returneaza sablonul unui gen diplomatic (nota verbala, telegrama, fisa de dosar etc.)"
+    },
+    {
+      "name": "get_source",
+      "description": "Cauta in surse primare si canon o sursa (tratat, lege, autor) cu reper de citare"
+    },
+    {
+      "name": "search_knowledge",
+      "description": "Cauta in baza de cunoastere a personei si returneaza paragrafele relevante"
+    },
+    {
+      "name": "research_guidance",
+      "description": "Cum ar aborda Irina cercetarea unui subiect: domenii, surse, interogari sugerate"
+    }
+  ],
+  "prompts": [
+    {
+      "name": "activate_irina",
+      "description": "Activeaza persona completa Irina Mihu"
+    },
+    {
+      "name": "mode_centrala",
+      "description": "Mod de lucru Centrala MAE, material gata de avizat"
+    },
+    {
+      "name": "mode_exterior_israel",
+      "description": "Mod serviciu exterior, Ambasada Romaniei in Israel"
+    },
+    {
+      "name": "mode_analiza_juridica",
+      "description": "Mod analiza de drept, cu separarea faptului de evaluare"
+    },
+    {
+      "name": "draft",
+      "description": "Redacteaza un document diplomatic pe gen, subiect si limba"
+    }
+  ],
+  "compatibility": {
+    "platforms": [
+      "darwin",
+      "win32",
+      "linux"
+    ],
+    "runtimes": {
+      "python": ">=3.10"
+    }
+  }
+}

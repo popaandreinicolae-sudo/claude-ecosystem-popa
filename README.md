@@ -8,11 +8,11 @@ Construit pe baza analizei halucinatiilor reale documentate in rapoarte
 profesionale generate prin LLM, calibrat pentru limba romana academica
 (DOOM 3, format citare Scoala Doctorala UB Drept).
 
-Versiune 1.3.0, iunie 2026. Open-source MIT.
+Versiune 1.4.0, iunie 2026. Open-source MIT.
 
 ## Continut monorepo
 
-### MCP servers, 12 active
+### MCP servers, 13 active
 
 Anti-AI tone si anti-halucinare:
 
@@ -33,6 +33,11 @@ Research academic:
 
 - **semantic-scholar**, cautare articole academice plus citari (6 tools)
 - **academic-search**, baza date academica plus full-text
+
+Persona diplomatica:
+
+- **irina-mihu-persona**, persona diplomat MAE (Secretar III, DAGFIJ, Departamentul
+  UE, mandat Ambasada Romaniei in Israel), 7 tools plus 5 prompts plus 5 resources
 
 ### Skills, 27 active
 

@@ -1,5 +1,15 @@
 # Changelog Claude Ecosystem Popa
 
+## v1.4.0, 2026-06-03 persona diplomatica
+
+- Adaugat MCP irina-mihu-persona, persona diplomat MAE (Secretar III, DAGFIJ,
+  Departamentul UE, mandat Ambasada Romaniei in Israel). 7 tools, 5 prompts,
+  5 resources. Profil derivat din dosar real, ancorat in canonul MAE. Romana si
+  ebraica native, engleza, italiana, franceza C2.
+
+Total componente: 13 MCP servers, 27 skill-uri, 4 subagenti, 8 scripts,
+5 cowork templates, 2 output styles, 3 managed agents.
+
 ## v1.3.0, 2026-06-03 monorepo unificat
 
 Consolidare completa intr-un singur repo public:
