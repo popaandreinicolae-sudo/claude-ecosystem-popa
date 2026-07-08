@@ -39,7 +39,7 @@ CONFIG = {
         "ordine ministru aparare specifica",
         "decizii director general agentii regionale fara impact larg",
     ],
-    "output_path": "C:/Users/Adrian Vasilescu/managed-agents/output/mof-watch",
+    "output_path": "output/mof-watch",
     "user_email": "popa.andrei.nicolae@gmail.com",
 }
 

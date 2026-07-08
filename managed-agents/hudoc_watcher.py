@@ -28,7 +28,7 @@ CONFIG = {
         "law quality test",
     ],
     "priority_states": ["Romania", "United Kingdom", "Germany", "France", "Czechia"],
-    "output_path": "C:/Users/Adrian Vasilescu/managed-agents/output/hudoc-watch",
+    "output_path": "output/hudoc-watch",
     "user_email": "popa.andrei.nicolae@gmail.com",
 }
 

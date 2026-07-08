@@ -50,7 +50,7 @@ CONFIG = {
         "https://www.ccr.ro/decizia-{N}/",
         "https://www.ccr.ro/wp-content/uploads/{YYYY}/{MM}/",
     ],
-    "output_path": "C:/Users/Adrian Vasilescu/managed-agents/output/ccr-watch",
+    "output_path": "output/ccr-watch",
     "user_email": "popa.andrei.nicolae@gmail.com",
 }
 
